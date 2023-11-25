@@ -1,18 +1,23 @@
 version: "3.8"
+
 services:
+
   web:
     build: ./
     ports:
       - "8124:80"
     volumes:
-      - ./datadrive:/DarcyCorrea-2672501/datadrive
+      - ./datadrive:/DarcyCorrea-2672501/datadrive  
     networks:
       - app-network
     container_name: web
+
   db:
     image: mysql:latest
     ports:
-      - "3306:3306"
+      - "3306:3306" 
+    volumes:
+      - dbdata:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: mysecretpassword
       MYSQL_DATABASE: mydb
@@ -21,6 +26,10 @@ services:
     networks:
       - app-network
     container_name: db
+
+volumes:
+  dbdata:
+
 networks:
   app-network:
     driver: bridge
